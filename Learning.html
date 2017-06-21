@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Ship data</title>
+
+    <script src="jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+    <script src="importData.js"></script>
+    <script src="Learning.js"></script>
+    <link rel="stylesheet" href="Learning.css">
+
+</head>
+<body>
+<header>
+    <h1>Kancolle ship data extractor</h1>
+</header>
+<div class="inputform">
+<form method="post" onsubmit="return false">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="ship_name">
+    <input type="button" value="Submit" onclick="extractData(ship_name.value)">
+</form>
+</div>
+
+<h2>Ship stats:</h2>
+
+<table id="stats">
+    <caption>*including equips</caption>
+    <tr>
+        <td><img src="images/fp.png"></td>
+        <th>Fire power</th>
+        <td id="fp">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/tp.png"></td>
+        <th>Torpedo power</th>
+        <td id="tp">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/yasen.png"></td>
+        <th>Night battle power</th>
+        <td id="nB">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/hp.png"></td>
+        <th>HP</th>
+        <td id="hp">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/ar.png"></td>
+        <th>Armour</th>
+        <td id="ar">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/aa.png"></td>
+        <th>Anti-air</th>
+        <td id="aa">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/ev.png"></td>
+        <th>Evasion*</th>
+        <td id="ev">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/as.png"></td>
+        <th>ASW*</th>
+        <td id="asw">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/ls.png"></td>
+        <th>LoS*</th>
+        <td id="los">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/fp.png"></td>
+        <th>Range</th>
+        <td id="rg">-</td>
+    </tr>
+    <tr>
+        <td><img src="images/lk.png"></td>
+        <th>Luck</th>
+        <td id="lk">-</td>
+    </tr>
+</table>
+
+<canvas id="radar"></canvas>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fleet Solver</title>
+
+    <script src="jquery-3.2.1.js"></script>
+    <script src="importData.js"></script>
+    <script src="lpsolver/src/solver.js"></script>
+    <script src="lpsolver/src/Reformat.js"></script>
+    <script src="Solver.js"></script>
+    <link rel="stylesheet" href="Learning.css">
+
+
+</head>
+<body>
+<header>
+    <h1>Kancolle fleet solver</h1>
+</header>
+
+<form>
+    <input type="button" onclick="english_model()" value="clickme">
+</form>
+
+<h2>Optimal 1-5 composition:</h2>
+<p id="solution"></p>
+
+</body>
+</html>

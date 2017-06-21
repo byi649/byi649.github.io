@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fleet Solver</title>
+
+    <script src="numeric-1.2.6.min.js"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <script src="importData.js"></script>
+    <script src="lpsolver/src/solver.js"></script>
+    <script src="lpsolver/src/Reformat.js"></script>
+    <script src="wanakana.js"></script>
+    <script src="Solver4.js"></script>
+    <link rel="stylesheet" href="Learning.css">
+
+
+</head>
+<body>
+<header>
+    <h1>Kancolle fleet solver</h1>
+</header>
+
+
+
+<span id="left">
+<h2 id="model">Model Setup - Lock 1</h2>
+<div class="inputform">
+    <form id="constraints">
+        <h3>Objective function:</h3>
+        Optimising:
+        <select name="objective">
+            <option value="fp">Firepower</option>
+            <option value="yasen">Night battle power</option>
+            <option value="yasenCI">Night battle power (with TCI)</option>
+            <option value="as">ASW</option>
+            <option value="hp">Health</option>
+        </select>
+        <h3>Fleet constraints:</h3>
+        <span class="tableConstraints">
+            <span class="additional"> <label>Maximum number of ships: </label><input type="text" name="maxShips" value=6> </span>
+            <span class="additional"> <label>Minimum fighter power: </label><input type="text" name="minFighter" value=0> </span>
+            <span class="additional"> <label>Minimum OASW-capable ships: </label><input type="text" name="minOASW" value=0> </span>
+            <span class="additional"> <label>Minimum AACI-capable ships:: </label><input type="text" name="minAACI" value=0> </span>
+        </span>
+        <h3>Class constraints:</h3>
+        <span class="tableConstraints">
+
+            <span class="classConstraints">
+                <label>DE minimum: </label>
+                <input type="text" name="minDE" value=0 class="min">
+                <label>DE maximum: </label>
+                <input type="text" name="maxDE" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>DD minimum: </label>
+                <input type="text" name="minDD" value=0 class="min">
+                <label>DD maximum: </label>
+                <input type="text" name="maxDD" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CL minimum: </label>
+                <input type="text" name="minCL" value=0 class="min">
+                <label>CL maximum: </label>
+                <input type="text" name="maxCL" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CLT minimum: </label>
+                <input type="text" name="minCLT" value=0 class="min">
+                <label>CLT maximum: </label>
+                <input type="text" name="maxCLT" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CA minimum: </label>
+                <input type="text" name="minCA" value=0 class="min">
+                <label>CA maximum: </label>
+                <input type="text" name="maxCA" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CAV minimum: </label>
+                <input type="text" name="minCAV" value=0 class="min">
+                <label>CAV maximum: </label>
+                <input type="text" name="maxCAV" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CVL minimum: </label>
+                <input type="text" name="minCVL" value=0 class="min">
+                <label>CVL maximum: </label>
+                <input type="text" name="maxCVL" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>FBB minimum: </label>
+                <input type="text" name="minFBB" value=0 class="min">
+                <label>FBB maximum: </label>
+                <input type="text" name="maxFBB" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>BB minimum: </label>
+                <input type="text" name="minBB" value=0 class="min">
+                <label>BB maximum: </label>
+                <input type="text" name="maxBB" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>BBV minimum: </label>
+                <input type="text" name="minBBV" value=0 class="min">
+                <label>BBV maximum: </label>
+                <input type="text" name="maxBBV" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CV minimum: </label>
+                <input type="text" name="minCV" value=0 class="min">
+                <label>CV maximum: </label>
+                <input type="text" name="maxCV" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>XBB minimum: </label>
+                <input type="text" name="minXBB" value=0 class="min">
+                <label>XBB maximum: </label>
+                <input type="text" name="maxXBB" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>SS minimum: </label>
+                <input type="text" name="minSS" value=0 class="min">
+                <label>SS maximum: </label>
+                <input type="text" name="maxSS" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>SSV minimum: </label>
+                <input type="text" name="minSSV" value=0 class="min">
+                <label>SSV maximum: </label>
+                <input type="text" name="maxSSV" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>Supply minimum: </label>
+                <input type="text" name="minSupply" value=0 class="min">
+                <label>Supply maximum: </label>
+                <input type="text" name="maxSupply" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AV minimum: </label>
+                <input type="text" name="minAV" value=0 class="min">
+                <label>AV maximum: </label>
+                <input type="text" name="maxAV" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>LHA minimum: </label>
+                <input type="text" name="minLHA" value=0 class="min">
+                <label>LHA maximum: </label>
+                <input type="text" name="maxLHA" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CVB minimum: </label>
+                <input type="text" name="minCVB" value=0 class="min">
+                <label>CVB maximum: </label>
+                <input type="text" name="maxCVB" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>AR minimum: </label>
+                <input type="text" name="minAR" value=0 class="min">
+                <label>AR maximum: </label>
+                <input type="text" name="maxAR" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AS minimum: </label>
+                <input type="text" name="minAS" value=0 class="min">
+                <label>AS maximum: </label>
+                <input type="text" name="maxAS" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CT minimum: </label>
+                <input type="text" name="minCT" value=0 class="min">
+                <label>CT maximum: </label>
+                <input type="text" name="maxCT" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AO minimum: </label>
+                <input type="text" name="minAO" value=0 class="min">
+                <label>AO maximum: </label>
+                <input type="text" name="maxAO" value="6" class="max">
+            </span>
+
+        </span>
+        <input type="button" onclick="solve_model([objective.value, objective2.value], [maxShips.value, maxShips2.value], [minFighter.value, minFighter2.value], [minOASW.value, minOASW2.value], [minAACI.value, minAACI2.value],
+        [[minDE.value, minDD.value, minCL.value, minCLT.value, minCA.value, minCAV.value, minCVL.value, minFBB.value, minBB.value, minBBV.value, minCV.value, minXBB.value, minSS.value, minSSV.value, minSupply.value, minAV.value, minLHA.value, minCVB.value, minAR.value, minAS.value, minCT.value, minAO.value], [minDE2.value, minDD2.value, minCL2.value, minCLT2.value, minCA2.value, minCAV2.value, minCVL2.value, minFBB2.value, minBB2.value, minBBV2.value, minCV2.value, minXBB2.value, minSS2.value, minSSV2.value, minSupply2.value, minAV2.value, minLHA2.value, minCVB2.value, minAR2.value, minAS2.value, minCT2.value, minAO2.value]],
+        [[maxDE.value, maxDD.value, maxCL.value, maxCLT.value, maxCA.value, maxCAV.value, maxCVL.value, maxFBB.value, maxBB.value, maxBBV.value, maxCV.value, maxXBB.value, maxSS.value, maxSSV.value, maxSupply.value, maxAV.value, maxLHA.value, maxCVB.value, maxAR.value, maxAS.value, maxCT.value, maxAO.value], [maxDE2.value, maxDD2.value, maxCL2.value, maxCLT2.value, maxCA2.value, maxCAV2.value, maxCVL2.value, maxFBB2.value, maxBB2.value, maxBBV2.value, maxCV2.value, maxXBB2.value, maxSS2.value, maxSSV2.value, maxSupply2.value, maxAV2.value, maxLHA2.value, maxCVB2.value, maxAR2.value, maxAS2.value, maxCT2.value, maxAO2.value]],
+        2)"
+               value="Solve" id="submitButton">
+        <input type="button" onclick="reset_form()" value="Reset" id="resetButton">
+
+        <h3>Objective function:</h3>
+        Optimising:
+        <select name="objective2">
+            <option value="fp">Firepower</option>
+            <option value="yasen">Night battle power</option>
+            <option value="yasenCI">Night battle power (with TCI)</option>
+            <option value="as">ASW</option>
+            <option value="hp">Health</option>
+        </select>
+        <h3>Fleet constraints:</h3>
+        <span class="tableConstraints">
+            <span class="additional"> <label>Maximum number of ships: </label><input type="text" name="maxShips2" value=6> </span>
+            <span class="additional"> <label>Minimum fighter power: </label><input type="text" name="minFighter2" value=0> </span>
+            <span class="additional"> <label>Minimum OASW-capable ships: </label><input type="text" name="minOASW2" value=0> </span>
+            <span class="additional"> <label>Minimum AACI-capable ships:: </label><input type="text" name="minAACI2" value=0> </span>
+        </span>
+        <h3>Class constraints:</h3>
+        <span class="tableConstraints">
+
+            <span class="classConstraints">
+                <label>DE minimum: </label>
+                <input type="text" name="minDE2" value=0 class="min">
+                <label>DE maximum: </label>
+                <input type="text" name="maxDE2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>DD minimum: </label>
+                <input type="text" name="minDD2" value=0 class="min">
+                <label>DD maximum: </label>
+                <input type="text" name="maxDD2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CL minimum: </label>
+                <input type="text" name="minCL2" value=0 class="min">
+                <label>CL maximum: </label>
+                <input type="text" name="maxCL2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CLT minimum: </label>
+                <input type="text" name="minCLT2" value=0 class="min">
+                <label>CLT maximum: </label>
+                <input type="text" name="maxCLT2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CA minimum: </label>
+                <input type="text" name="minCA2" value=0 class="min">
+                <label>CA maximum: </label>
+                <input type="text" name="maxCA2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CAV minimum: </label>
+                <input type="text" name="minCAV2" value=0 class="min">
+                <label>CAV maximum: </label>
+                <input type="text" name="maxCAV2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CVL minimum: </label>
+                <input type="text" name="minCVL2" value=0 class="min">
+                <label>CVL maximum: </label>
+                <input type="text" name="maxCVL2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>FBB minimum: </label>
+                <input type="text" name="minFBB2" value=0 class="min">
+                <label>FBB maximum: </label>
+                <input type="text" name="maxFBB2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>BB minimum: </label>
+                <input type="text" name="minBB2" value=0 class="min">
+                <label>BB maximum: </label>
+                <input type="text" name="maxBB2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>BBV minimum: </label>
+                <input type="text" name="minBBV2" value=0 class="min">
+                <label>BBV maximum: </label>
+                <input type="text" name="maxBBV2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CV minimum: </label>
+                <input type="text" name="minCV2" value=0 class="min">
+                <label>CV maximum: </label>
+                <input type="text" name="maxCV2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>XBB minimum: </label>
+                <input type="text" name="minXBB2" value=0 class="min">
+                <label>XBB maximum: </label>
+                <input type="text" name="maxXBB2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>SS minimum: </label>
+                <input type="text" name="minSS2" value=0 class="min">
+                <label>SS maximum: </label>
+                <input type="text" name="maxSS2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>SSV minimum: </label>
+                <input type="text" name="minSSV2" value=0 class="min">
+                <label>SSV maximum: </label>
+                <input type="text" name="maxSSV2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>Supply minimum: </label>
+                <input type="text" name="minSupply2" value=0 class="min">
+                <label>Supply maximum: </label>
+                <input type="text" name="maxSupply2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AV minimum: </label>
+                <input type="text" name="minAV2" value=0 class="min">
+                <label>AV maximum: </label>
+                <input type="text" name="maxAV2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>LHA minimum: </label>
+                <input type="text" name="minLHA2" value=0 class="min">
+                <label>LHA maximum: </label>
+                <input type="text" name="maxLHA2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CVB minimum: </label>
+                <input type="text" name="minCVB2" value=0 class="min">
+                <label>CVB maximum: </label>
+                <input type="text" name="maxCVB2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints" style="display: none;">
+                <label>AR minimum: </label>
+                <input type="text" name="minAR2" value=0 class="min">
+                <label>AR maximum: </label>
+                <input type="text" name="maxAR2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AS minimum: </label>
+                <input type="text" name="minAS2" value=0 class="min">
+                <label>AS maximum: </label>
+                <input type="text" name="maxAS2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>CT minimum: </label>
+                <input type="text" name="minCT2" value=0 class="min">
+                <label>CT maximum: </label>
+                <input type="text" name="maxCT2" value="6" class="max">
+            </span>
+
+            <span class="classConstraints">
+                <label>AO minimum: </label>
+                <input type="text" name="minAO2" value=0 class="min">
+                <label>AO maximum: </label>
+                <input type="text" name="maxAO2" value="6" class="max">
+            </span>
+
+        </span>
+    </form>
+    <span id="showFeasible"></span>
+</div>
+</span>
+
+
+
+
+
+<span id="right">
+<h2>Optimal composition:</h2>
+<div id="solution"></div>
+</span>
+</body>
+</html>

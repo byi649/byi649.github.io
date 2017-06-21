@@ -1,0 +1,158 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.8;
+    background-image: url("images/shigugugugu.jpg");
+    background-repeat: no-repeat;
+    background-size: 15%;
+    background-attachment: fixed;
+    background-position: 99% 95%;
+}
+
+/* Heading */
+header {
+    background-color: #4286f4;
+    text-align: center;
+    border-bottom: black 2px solid;
+}
+
+/*Top header*/
+h1 {
+    margin: 0;
+    color: white;
+}
+
+/*Secondary headers*/
+h2 {
+    margin: 10px;
+}
+
+/* Input form */
+#left {
+    float: left;
+}
+
+.inputform {
+    margin: 10px;
+}
+
+/* Sidebar */
+#sidebar {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    background-color: #F1F1F1;
+    border-right: black 2px solid;
+    overflow: hidden;
+    margin-bottom: -5000px;
+    padding-bottom: 5000px;
+}
+
+ul {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+}
+
+li {
+    text-indent: 10px;
+    display: block;
+}
+
+.active {
+    background-color: #4286f4;
+}
+
+li:hover {
+    background-color: #555;
+    color: white;
+}
+
+/*Table*/
+table, th, td {
+    margin: 10px;
+    text-align: left;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    padding-right: 8px;
+}
+
+#stats {
+    float: left;
+}
+
+img {
+    vertical-align: middle;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+caption {
+    caption-side: bottom;
+    text-align: left;
+}
+
+/* Radar chart */
+#radar {
+    width: 40%;
+    height: 40%;
+    float: right;
+    margin-right: 30%;
+}
+
+p {
+    margin: 10px
+}
+
+/* Constraints */
+label {
+ display: table-cell;
+    padding-right: 5px;
+}
+
+.tableConstraints {
+    display: table;
+}
+
+.additional, .classConstraints {
+    display: table-row;
+}
+
+.tableConstraints input {
+    display: table-cell;
+    width: 80%;
+}
+
+#submitButton, #resetButton {
+    width: 20%;
+    height: 35px;
+    margin: 10px;
+}
+
+#left, #secondleft {
+    float:left;
+}
+
+#right {
+    float:left;
+    margin-left: 2%;
+    visibility: hidden;
+}
+
+#showFeasible {
+    color: red;
+}
+
+.min, .max {
+    color: #D3D3D3;
+}
+
+#model {
+    margin-left: 0;
+}
