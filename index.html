@@ -227,5 +227,18 @@
 <h2>Optimal composition:</h2>
 <div id="solution"></div>
 </span>
+
+<!-- Login box -->
+<div id="bottombar"><button onclick="document.getElementById('loginOverlay').style.display='block'"> Login here.</button></div>
+<div id="loginOverlay">
+  <div id="loginBox">
+    <header id="loginTop" onclick="document.getElementById('loginOverlay').style.display='none'"> Paste your profile data here </header>
+    <div id="loginMid">
+      <textarea type="text" id="profileInputBox" name="profileText"> </textarea>
+    </div>
+    <footer id="loginBot" onclick="document.getElementById('loginOverlay').style.display='none'; loadData();"> Submit </footer>
+  </div>
+</div>
+
 </body>
 </html>
