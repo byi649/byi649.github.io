@@ -60,8 +60,8 @@ function extractData(name) {
     }
     var api_ID = api_ID_position[0];
     var i = api_ID_position[1];
-    var rosterX_ID = convert_api_ID_to_rosterX_ID(api_ID)[0];
-    if (rosterX_ID === undefined) {
+    var rosterX_ID = convert_api_ID_to_rosterX_ID(api_ID);
+    if (rosterX_ID[0] === undefined) {
         alert("You don't have this ship!");
         return 0;
     }
@@ -74,7 +74,7 @@ function extractData(name) {
     var ar = statistics[4];
     var ev = statistics[5];
     var aa = statistics[6];
-    var asw = statistics[7];
+    var asw = get_ship_ASW(rosterX_ID[0]);
     var los = statistics[8];
     var rg = statistics[9];
     var lk = statistics[10];
@@ -142,5 +142,3 @@ function extractData(name) {
     });
 
 }
-
-

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--Extract ship data from profile data and display radar chart
+Compare against average ship from same class
+TODO: compare two ships -->
+
 <html lang="en">
 <head>
 
@@ -12,10 +16,14 @@
     <link rel="stylesheet" href="Learning.css">
 
 </head>
+
 <body>
 <header>
     <h1>Kancolle ship data extractor</h1>
 </header>
+
+<!-- Ship name box + button
+Currently only accepts JP names -->
 <div class="inputform">
 <form method="post" onsubmit="return false">
     <label for="name">Name:</label>
@@ -24,6 +32,7 @@
 </form>
 </div>
 
+<!-- Table of returned stats -->
 <h2>Ship stats:</h2>
 
 <table id="stats">
@@ -65,7 +74,7 @@
     </tr>
     <tr>
         <td><img src="images/as.png"></td>
-        <th>ASW*</th>
+        <th>ASW</th>
         <td id="asw">-</td>
     </tr>
     <tr>
@@ -85,7 +94,20 @@
     </tr>
 </table>
 
+<!-- Radar chart -->
 <canvas id="radar"></canvas>
+
+<!-- Login box -->
+<div id="bottombar"><button onclick="document.getElementById('loginOverlay').style.display='block'"> Login here.</button></div>
+<div id="loginOverlay">
+  <div id="loginBox">
+    <header id="loginTop" onclick="document.getElementById('loginOverlay').style.display='none'"> Paste your profile data here </header>
+    <div id="loginMid">
+      <textarea type="text" id="profileInputBox" name="profileText"> </textarea>
+    </div>
+    <footer id="loginBot" onclick="document.getElementById('loginOverlay').style.display='none'; loadData();"> Submit </footer>
+  </div>
+</div>
 
 </body>
 </html>

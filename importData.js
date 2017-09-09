@@ -18,6 +18,11 @@ $.getJSON("equipData.json", function(json) {
     equipData = json;
 });
 
+function loadData() {
+  var jsonData = $('#profileInputBox').val();
+  profileData = $.parseJSON(jsonData);
+
+}
 
 function clean_game_Data() {
     var arrayEnd = gameData.length;
