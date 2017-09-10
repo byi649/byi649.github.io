@@ -52,71 +52,134 @@ function scaleStats(stats) {
     return scaled;
 }
 
-function extractData(name) {
-    var api_ID_position = convert_name_to_api_ID(name);
-    if (api_ID_position === undefined) {
-        alert("This ship doesn't exist!");
+function extractData(name1, name2) {
+    var api_ID_position1 = convert_name_to_api_ID(name1);
+    var api_ID_position2 = convert_name_to_api_ID(name2);
+    if (api_ID_position1 === undefined) {
+        alert("Ship 1 doesn't exist!");
         return 0;
     }
-    var api_ID = api_ID_position[0];
-    var i = api_ID_position[1];
-    var rosterX_ID = convert_api_ID_to_rosterX_ID(api_ID);
-    if (rosterX_ID[0] === undefined) {
-        alert("You don't have this ship!");
+    if (api_ID_position2 === undefined) {
+        alert("Ship 2 doesn't exist!");
+        return 0;
+    }
+    var api_ID1 = api_ID_position1[0];
+    var i = api_ID_position1[1]; // not actually sure where this is used
+    var rosterX_ID1 = convert_api_ID_to_rosterX_ID(api_ID1);
+    var api_ID2 = api_ID_position2[0];
+    var j = api_ID_position2[1];
+    var rosterX_ID2 = convert_api_ID_to_rosterX_ID(api_ID2);
+    if (rosterX_ID1[0] === undefined) {
+        alert("You don't have ship 1!");
+        return 0;
+    }
+    if (rosterX_ID2[0] === undefined) {
+        alert("You don't have ship 2!");
         return 0;
     }
 
-    var statistics = get_ship_data(api_ID);
-    var fp = statistics[0];
-    var tp = statistics[1];
-    var nB = statistics[2];
-    var hp = statistics[3];
-    var ar = statistics[4];
-    var ev = statistics[5];
-    var aa = statistics[6];
-    var asw = get_ship_ASW(rosterX_ID[0]);
-    var los = statistics[8];
-    var rg = statistics[9];
-    var lk = statistics[10];
-    var shipClass = statistics[11];
+    var statistics1 = get_ship_data(api_ID1);
+    var fp1 = statistics1[0];
+    var tp1 = statistics1[1];
+    var nB1 = statistics1[2];
+    var hp1 = statistics1[3];
+    var ar1 = statistics1[4];
+    var ev1 = statistics1[5];
+    var aa1 = statistics1[6];
+    var asw1 = get_ship_ASW(rosterX_ID1[0]);
+    var los1 = statistics1[8];
+    var rg1 = statistics1[9];
+    var lk1 = statistics1[10];
+    var shipClass1 = statistics1[11];
 
-    $('#fp').text(fp);
-    $('#tp').text(tp);
-    $('#nB').text(nB);
-    $('#hp').text(hp);
-    $('#ar').text(ar);
-    $('#ev').text(ev);
-    $('#aa').text(aa);
-    $('#asw').text(asw);
-    $('#los').text(los);
-    switch (rg) {
+    var statistics2 = get_ship_data(api_ID2);
+    var fp2 = statistics2[0];
+    var tp2 = statistics2[1];
+    var nB2 = statistics2[2];
+    var hp2 = statistics2[3];
+    var ar2 = statistics2[4];
+    var ev2 = statistics2[5];
+    var aa2 = statistics2[6];
+    var asw2 = get_ship_ASW(rosterX_ID2[0]);
+    var los2 = statistics2[8];
+    var rg2 = statistics2[9];
+    var lk2 = statistics2[10];
+    var shipClass2 = statistics2[11];
+
+    $('#fp1').text(fp1);
+    $('#tp1').text(tp1);
+    $('#nB1').text(nB1);
+    $('#hp1').text(hp1);
+    $('#ar1').text(ar1);
+    $('#ev1').text(ev1);
+    $('#aa1').text(aa1);
+    $('#asw1').text(asw1);
+    $('#los1').text(los1);
+    switch (rg1) {
         case 1:
-            $('#rg').text('Short');
+            $('#rg1').text('Short');
             break;
         case 2:
-            $('#rg').text('Medium');
+            $('#rg1').text('Medium');
             break;
         case 3:
-            $('#rg').text('Long');
+            $('#rg1').text('Long');
             break;
         case 4:
-            $('#rg').text('Very Long');
+            $('#rg1').text('Very Long');
             break;
     }
-    $('#lk').text(lk);
+    $('#lk1').text(lk1);
 
-    var stats_scaling = {
-        ship: [fp, tp, hp, aa, nB],
-        average: getAverages(shipClass)
+    $('#fp2').text(fp2);
+    $('#tp2').text(tp2);
+    $('#nB2').text(nB2);
+    $('#hp2').text(hp2);
+    $('#ar2').text(ar2);
+    $('#ev2').text(ev2);
+    $('#aa2').text(aa2);
+    $('#asw2').text(asw2);
+    $('#los2').text(los2);
+    switch (rg2) {
+        case 1:
+            $('#rg2').text('Short');
+            break;
+        case 2:
+            $('#rg2').text('Medium');
+            break;
+        case 3:
+            $('#rg2').text('Long');
+            break;
+        case 4:
+            $('#rg2').text('Very Long');
+            break;
+    }
+    $('#lk2').text(lk2);
+
+    var stats_scaling1 = {
+        ship: [fp1, tp1, hp1, aa1, nB1],
+        average: getAverages(shipClass1)
+    };
+
+    var stats_scaling2 = {
+        ship: [fp2, tp2, hp2, aa2, nB2],
+        average: getAverages(shipClass2)
     };
 
     var data = {
         labels: ['FP', 'TP', 'HP', 'AA', 'NB'],
         datasets: [{
-            data: scaleStats(stats_scaling),
+            label: name1,
+            data: scaleStats(stats_scaling1),
             backgroundColor: 'rgba(66,134,244,0.3)',
             borderColor: 'rgba(66,134,244,1)'
         }, {
+            label: name2,
+            data: scaleStats(stats_scaling2),
+            backgroundColor: 'rgba(26,191,59,0.3)',
+            borderColor: 'rgba(26,191,59,1)'
+        }, {
+            label: 'Baseline',
             data: [1, 1, 1, 1, 1],
             backgroundColor: 'rgba(0,0,0,0)',
             borderColor: 'rgba(255,0,0,0.6)'
@@ -136,7 +199,8 @@ function extractData(name) {
                 }
             },
             legend: {
-                display: false
+                display: true,
+                position: 'right'
             }
         }
     });
