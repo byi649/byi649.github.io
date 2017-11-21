@@ -1,3 +1,11 @@
+// Included in this file are functions intended to be useful for KC websites
+// The main purpose of this is to call and parse KC data from both KC3kai and
+// the game data itself.
+
+// importShips() should be called before all else.
+// getShip(id_type, ID) is useful for calling a specific ship
+
+
 // Input files
 var profileData;
 $.getJSON("profile.json", function(json) {
@@ -11,8 +19,7 @@ $.getJSON("data.json", function(json) {
 
 
 // Ship object definition
-function Ship(rosterID, masterID, level, name, yomi, shipClass, HP, FP, TP, AA, AR, EV, AS, LS, LK) {
-  // Definitions
+function Ship(rosterID, masterID, level, name, yomi, shipClass, HP, FP, TP, AA, AR, EV, AS, LS, LK, RG) {
 
   // Unique ID, as shown by KC3 in shiplist
   this.rosterID = rosterID;
@@ -40,6 +47,7 @@ function Ship(rosterID, masterID, level, name, yomi, shipClass, HP, FP, TP, AA, 
   this.AS = AS;
   this.LS = LS[0];
   this.LK = LK[0];
+  this.RG = RG;
 
   // Night battle stats
   // TODO: set carriers to zero
@@ -93,7 +101,8 @@ function importShips () {
       profileData.ships[ship].ev,
       asw,
       profileData.ships[ship].ls,
-      profileData.ships[ship].lk
+      profileData.ships[ship].lk,
+      profileData.ships[ship].range
     );
 
     i++;
@@ -132,7 +141,7 @@ function getShip(id_type, ID) {
       if (profileShips[i].yomi == hiraganaName) return profileShips[i];
     }
 
-    //TODO: yomi, english, kanji
+    //TODO: smart name selection
     default:
     return null;
   }
