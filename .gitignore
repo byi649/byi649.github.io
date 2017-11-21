@@ -1,7 +1,8 @@
-data.json
 data.json.bk
 
+dataShips.json
 dataShips.json.bk
+equipData.json
 equipData.json.bk
 
 SimplexJS.js
@@ -9,6 +10,13 @@ Solver.html
 Solver2.html
 Solver4.html
 
+Solver1.js
 Solver2.js
 Solver3.js
 Solver4.js
+
+importData.js
+Learning.html
+Learning.js
+profile.json.bk
+profile1.json
