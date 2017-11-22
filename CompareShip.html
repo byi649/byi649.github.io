@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--Extract ship data from profile data and display radar chart
+Compare against average ship from same class
+TODO: compare N ships -->
+
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>Ship data</title>
+
+  <script src="jquery-3.2.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+  <script src="constructer.js"></script>
+  <script src="CompareShip.js"></script>
+  <script src="wanakana.js"></script>
+  <link rel="stylesheet" href="Learning.css">
+
+  <link rel="icon" href="favicon.ico">
+
+</head>
+
+<body>
+  <header>
+    <h1>Kancolle ship data extractor</h1>
+  </header>
+
+  <!-- Ship name box + button
+  Currently only accepts EN names -->
+  <div class="inputform">
+    <form method="post" onsubmit="return false">
+      <label for="name">Enter two ships:</label>
+      <input type="text" id="name1" name="ship_name1"><br>
+      <input type="text" id="name2" name="ship_name2">
+      <input type="button" value="Submit" onclick="extractData(ship_name1.value, ship_name2.value)">
+    </form>
+  </div>
+
+  <!-- Table of returned stats -->
+  <h2>Ship stats:</h2>
+
+  <table id="stats">
+    <caption>*including equips</caption>
+    <tr>
+      <td><img src="images/fp.png"></td>
+      <th>Fire power</th>
+      <td id="fp1">-</td>
+      <td id="fp2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/tp.png"></td>
+      <th>Torpedo power</th>
+      <td id="tp1">-</td>
+      <td id="tp2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/yasen.png"></td>
+      <th>Night battle power</th>
+      <td id="nB1">-</td>
+      <td id="nB2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/hp.png"></td>
+      <th>HP</th>
+      <td id="hp1">-</td>
+      <td id="hp2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/ar.png"></td>
+      <th>Armour</th>
+      <td id="ar1">-</td>
+      <td id="ar2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/aa.png"></td>
+      <th>Anti-air</th>
+      <td id="aa1">-</td>
+      <td id="aa2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/ev.png"></td>
+      <th>Evasion*</th>
+      <td id="ev1">-</td>
+      <td id="ev2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/as.png"></td>
+      <th>ASW</th>
+      <td id="asw1">-</td>
+      <td id="asw2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/ls.png"></td>
+      <th>LoS*</th>
+      <td id="los1">-</td>
+      <td id="los2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/fp.png"></td>
+      <th>Range</th>
+      <td id="rg1">-</td>
+      <td id="rg2">-</td>
+    </tr>
+    <tr>
+      <td><img src="images/lk.png"></td>
+      <th>Luck</th>
+      <td id="lk1">-</td>
+      <td id="lk2">-</td>
+    </tr>
+  </table>
+
+  <!-- Radar chart -->
+  <canvas id="radar"></canvas>
+
+  <!-- Login box -->
+  <div id="bottombar"><button onclick="document.getElementById('loginOverlay').style.display='block'"> Login here.</button></div>
+  <div id="loginOverlay">
+    <div id="loginBox">
+      <header id="loginTop" onclick="document.getElementById('loginOverlay').style.display='none'"> Paste your profile data here </header>
+      <div id="loginMid">
+        <textarea type="text" id="profileInputBox" name="profileText"> </textarea>
+      </div>
+      <footer id="loginBot" onclick="document.getElementById('loginOverlay').style.display='none'; loadData();"> Submit </footer>
+    </div>
+  </div>
+
+</body>
+</html>

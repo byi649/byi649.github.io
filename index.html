@@ -6,13 +6,14 @@
 
     <script src="numeric-1.2.6.min.js"></script>
     <script src="jquery-3.2.1.js"></script>
-    <script src="importData.js"></script>
+    <script src="constructer.js"></script>
     <script src="lpsolver/src/solver.js"></script>
     <script src="lpsolver/src/Reformat.js"></script>
     <script src="wanakana.js"></script>
-    <script src="Solver5.js"></script>
+    <script src="FleetSolver.js"></script>
     <link rel="stylesheet" href="Learning.css">
 
+    <link rel="icon" href="favicon.ico">
 
 </head>
 <body>
@@ -37,11 +38,11 @@
         <h3>Objective function:</h3>
         Optimising:
         <select name="objective1">
-            <option value="fp">Firepower</option>
-            <option value="yasen">Night battle power</option>
-            <option value="yasenCI">Night battle power (with TCI)</option>
-            <option value="as">ASW</option>
-            <option value="hp">Health</option>
+            <option value="FP">Firepower</option>
+            <option value="NB">Night battle power</option>
+            <option value="NBCI">Night battle power (with TCI)</option>
+            <option value="AS">ASW</option>
+            <option value="HP">Health</option>
         </select>
         <h3>Fleet constraints:</h3>
         <span class="tableConstraints">
